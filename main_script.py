@@ -1,4 +1,6 @@
 import csv
+import json
+
 from percentage_calculator import calculate_percentage_equal
 
 # Specify the path to your CSV file
@@ -38,8 +40,21 @@ firstTower_equal = calculate_percentage_equal(winner_column_values, firstTower_c
 firstInhibitor_equal = calculate_percentage_equal(winner_column_values, firstInhibitor_column_values)
 firstBaron_equal = calculate_percentage_equal(winner_column_values, firstBaron_column_values)
 
+# Normalized Values
+firstBlood_equal_normalized = calculate_percentage_equal(winner_column_values, firstBlood_column_values, True)
+firstTower_equal_normalized = calculate_percentage_equal(winner_column_values, firstTower_column_values, True)
+firstInhibitor_equal_normalized = calculate_percentage_equal(winner_column_values, firstInhibitor_column_values, True)
+firstBaron_equal_normalized = calculate_percentage_equal(winner_column_values, firstBaron_column_values, True)
 
-print(f"The team that gets the first kill of the game is: {firstBlood_equal:.2f}% more likely to win the game.")
-print(f"The team that gets the first tower of the game is: {firstTower_equal:.2f}% more likely to win the game.")
-print(f"The team that gets the first tower of the game is: {firstInhibitor_equal:.2f}% more likely to win the game.")
-print(f"The team that gets the first baron of the game is: {firstBaron_equal:.2f}% more likely to win the game.")
+
+print(json.dumps({
+    "firstKill": f"{firstBlood_equal:.2f}%",
+    "firstTower": f"{firstTower_equal:.2f}%",
+    "firstInhibitor": f"{firstInhibitor_equal:.2f}%",
+    "firstBaron": f"{firstBaron_equal:.2f}%",
+    "firstBloodNormalized": f"{firstBlood_equal_normalized:.2f}%",
+    "firstTowerNormalized": f"{firstTower_equal_normalized:.2f}%",
+    "firstInhibitorNormalized": f"{firstInhibitor_equal_normalized:.2f}%",
+    "firstBaronNormalized": f"{firstBaron_equal_normalized:.2f}%"
+}, indent=4))
+
